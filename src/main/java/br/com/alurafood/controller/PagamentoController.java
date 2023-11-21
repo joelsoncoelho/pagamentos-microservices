@@ -3,6 +3,7 @@ package br.com.alurafood.controller;
 import br.com.alurafood.domain.pagamento.*;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -63,6 +64,11 @@ public class PagamentoController {
     public ResponseEntity excluir (@PathVariable Long id){
         pagamentoRepository.deleteById(id);
          return ResponseEntity.noContent().build();
+    }
+
+    @PatchMapping("/{id}/confirmar")
+    public void confirmarPagamento(@PathVariable @NotNull Long id){
+        pagamentoService.confirmarPagamento(id);
     }
 
 }
