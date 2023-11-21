@@ -1,6 +1,7 @@
 package br.com.alurafood.controller;
 
 import br.com.alurafood.domain.pagamento.*;
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
@@ -67,6 +68,7 @@ public class PagamentoController {
     }
 
     @PatchMapping("/{id}/confirmar")
+    @CircuitBreaker(name = "atualizaPedido", fallbackMethod = "")
     public void confirmarPagamento(@PathVariable @NotNull Long id){
         pagamentoService.confirmarPagamento(id);
     }
