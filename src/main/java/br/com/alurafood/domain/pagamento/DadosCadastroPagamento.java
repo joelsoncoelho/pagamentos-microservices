@@ -29,6 +29,7 @@ public record DadosCadastroPagamento(
         @Size(min = 3, max = 3)
         String codigo,
 
+        @NotNull(message = "O status não pode ser nulo")
         Status status,
 
         @NotNull(message = "O pedidoId não pode ser nulo")

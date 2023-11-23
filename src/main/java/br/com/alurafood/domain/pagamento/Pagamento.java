@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import net.minidev.json.annotate.JsonIgnore;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -53,7 +54,6 @@ public class Pagamento {
         this.status = status;
     }
 
-
     public void atualizaInformacoes(DadosAtualizacaoPagamento dados) {
         if(dados.valor() != null){
             this.valor = dados.valor();
@@ -70,5 +70,9 @@ public class Pagamento {
         if(dados.codigo() != null){
             this.codigo = dados.codigo();
         }
+        if(dados.status() != null){
+            mudarStatus(dados.status());
+        }
     }
+
 }

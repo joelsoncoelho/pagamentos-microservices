@@ -30,6 +30,9 @@ public record DadosAtualizacaoPagamento(
 
         @NotBlank(message = "O campo código não pode estar em branco")
         @Size(min = 3, max = 3)
-        String codigo
+        String codigo,
+
+        @NotNull(message = "O status não pode ser nulo")
+        Status status
 ) {
 }
