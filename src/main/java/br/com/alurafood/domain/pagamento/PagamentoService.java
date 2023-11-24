@@ -3,7 +3,6 @@ package br.com.alurafood.domain.pagamento;
 import br.com.alurafood.http.PedidoClient;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -19,7 +18,7 @@ public class PagamentoService {
 
     public Pagamento criarPagamento(DadosCadastroPagamento dados) {
         var pagamento = new Pagamento(dados);
-        pagamento.mudarStatus(Status.CRIADO);
+        pagamento.setStatus(Status.CRIADO);
         pagamentoRepository.save(pagamento);
         return pagamento;
 
@@ -32,7 +31,7 @@ public class PagamentoService {
             throw new EntityNotFoundException();
         }
 
-        pagamento.get().mudarStatus(Status.CONFIRMADO);
+        pagamento.get().setStatus(Status.CONFIRMADO);
         pagamentoRepository.save(pagamento.get());
         pedidoClient.atualizaPagamento(pagamento.get().getPedidoId());
 
@@ -45,7 +44,7 @@ public class PagamentoService {
             throw new EntityNotFoundException();
         }
 
-        pagamento.get().mudarStatus(Status.CONFIRMADO_SEM_INTEGRACAO);
+        pagamento.get().setStatus(Status.CONFIRMADO_SEM_INTEGRACAO);
         pagamentoRepository.save(pagamento.get());
     }
 

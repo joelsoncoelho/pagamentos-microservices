@@ -1,11 +1,11 @@
 package br.com.alurafood.domain.pagamento;
 
+
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import net.minidev.json.annotate.JsonIgnore;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -39,6 +39,10 @@ public class Pagamento {
 
     private Long formaDePagamentoId;
 
+    public void setStatus(Status status) {
+        this.status = status;
+    }
+
     public Pagamento(DadosCadastroPagamento dados){
         this.valor = dados.valor();
         this.nome = dados.nome();
@@ -48,10 +52,6 @@ public class Pagamento {
         this.status = dados.status();
         this.pedidoId = dados.pedidoId();
         this.formaDePagamentoId = dados.formaDePagamentoId();
-    }
-
-    public void mudarStatus(Status status){
-        this.status = status;
     }
 
     public void atualizaInformacoes(DadosAtualizacaoPagamento dados) {
@@ -71,7 +71,7 @@ public class Pagamento {
             this.codigo = dados.codigo();
         }
         if(dados.status() != null){
-            mudarStatus(dados.status());
+            setStatus(dados.status());
         }
     }
 
